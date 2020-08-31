@@ -18,7 +18,7 @@ struct MovieResult: Codable {
     }
 }
 
-struct Movie: Codable {
+struct Movie: Codable, Hashable {
     var path: String?
     var title: String
     var rating: Double?

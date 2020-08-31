@@ -10,13 +10,17 @@ import UIKit
 
 class ViewController: UIViewController {
     
+    typealias Snapshot = NSDiffableDataSourceSnapshot<Section, Movie>
+    
     // MARK: - Private Properties
+    
+    private var viewModel = MoviesViewModel()
+    private lazy var dataSource = createDataSource()
     
     private lazy var collectionView: UICollectionView = {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: createLayout())
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         collectionView.delegate = self
-        collectionView.dataSource = self
         collectionView.backgroundColor = .white
         return collectionView
     }()
@@ -26,6 +30,7 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupCollectionView()
+        setupViewModel()
     }
     
     // MARK: - Private Methods
@@ -39,24 +44,17 @@ class ViewController: UIViewController {
                                      collectionView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
                                      collectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
         ])
-    }
-}
-
-// MARK: - UICollectionViewDataSource
-
-extension ViewController: UICollectionViewDataSource {
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cellId", for: indexPath)
-        cell.backgroundColor = .red
-        return cell
+        
+        self.dataSource = createDataSource()
     }
     
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 10
-    }
-    
-    func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return 2
+    private func setupViewModel() {
+        viewModel.requestCallback = { [weak self] in
+            guard let self = self else { return }
+            self.applySnapshot()
+        }
+        
+        viewModel.requestData()
     }
 }
 
@@ -89,7 +87,7 @@ extension ViewController {
                 section.contentInsets.leading = 16
                 section.contentInsets.trailing = 16
                 
-                section.boundarySupplementaryItems = [headerElement]
+//                section.boundarySupplementaryItems = [headerElement]
                 
                 return section
             } else {
@@ -105,10 +103,42 @@ extension ViewController {
                 section.contentInsets.top = 16
                 section.contentInsets.bottom = 16
                 
-                section.boundarySupplementaryItems = [headerElement]
+//                section.boundarySupplementaryItems = [headerElement]
                 
                 return section
             }
         }
+    }
+}
+
+// MARK: - DiffableDataSource
+
+extension ViewController {
+    private func createDataSource() -> UICollectionViewDiffableDataSource<Section, Movie> {
+       return UICollectionViewDiffableDataSource<Section, Movie>(collectionView: collectionView) { [weak self] (collectionView, index, movie) -> UICollectionViewCell? in
+            guard let self = self else { return nil }
+            switch self.viewModel.sections[index.section].type {
+            case .today:
+                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cellId", for: index)
+                cell.backgroundColor = .red
+                return cell
+            case .upcoming:
+                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cellId", for: index)
+                cell.backgroundColor = .blue
+                return cell
+
+            }
+        }
+    }
+    
+    private func applySnapshot() {
+        var snapshot = Snapshot()
+        snapshot.appendSections(viewModel.sections)
+        
+        viewModel.sections.forEach { section in
+            snapshot.appendItems(section.movies, toSection: section)
+        }
+        
+        dataSource.apply(snapshot, animatingDifferences: true)
     }
 }
