@@ -10,7 +10,7 @@ import Foundation
 
 protocol ApiManager {
     func getTodayMovies(page: Int, completion: @escaping(Result<[Movie], NetworkError>) -> Void)
-    func getUpcomingMovies(page: Int, completion: @escaping(Result<[Movie], NetworkError>) -> Void)
+    func getTopRatedMovies(page: Int, completion: @escaping(Result<[Movie], NetworkError>) -> Void)
     
     static var shared: Self { get }
 }

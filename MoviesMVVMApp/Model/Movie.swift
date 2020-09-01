@@ -24,6 +24,7 @@ struct Movie: Codable, Hashable {
     var rating: Double?
     var overview: String
     var date: String
+    var duration: Int?
     
     private enum CodingKeys: String, CodingKey {
         case path = "poster_path"
@@ -31,6 +32,7 @@ struct Movie: Codable, Hashable {
         case rating = "vote_average"
         case overview = "overview"
         case date = "release_date"
+        case duration = "runtime"
     }
     
     enum Actions {

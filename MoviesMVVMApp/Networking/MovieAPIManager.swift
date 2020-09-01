@@ -16,7 +16,7 @@ final class MovieAPIManager: ApiManager  {
     static var shared: MovieAPIManager = MovieAPIManager()
     
     func getTodayMovies(page: Int, completion: @escaping (Result<[Movie], NetworkError>) -> Void) {
-        let parameters: Parameters = ["api_key": getApiKey(), "page": page]
+        let parameters: Parameters = ["api_key": getApiKey()]
         AF.request("\(path)movie/now_playing", method: .get, parameters: parameters).response { [weak self] response in
             print(response.response)
             guard let self = self else { return }
@@ -25,9 +25,9 @@ final class MovieAPIManager: ApiManager  {
         }
     }
     
-    func getUpcomingMovies(page: Int, completion: @escaping (Result<[Movie], NetworkError>) -> Void) {
+    func getTopRatedMovies(page: Int, completion: @escaping (Result<[Movie], NetworkError>) -> Void) {
         let parameters: Parameters = ["api_key": getApiKey(), "page": page]
-        AF.request("\(path)movie/upcoming", method: .get, parameters: parameters).response(queue: .global()) { [weak self] response in
+        AF.request("\(path)movie/top_rated", method: .get, parameters: parameters).response(queue: .global()) { [weak self] response in
             guard let self = self else { return }
             
             self.genericHandler(response: response, completion: completion)

@@ -14,6 +14,6 @@ struct Section: Hashable {
 }
 
 enum SectionType: String, Hashable {
+    case topRated = "Top Rated"
     case today = "Today"
-    case upcoming = "Upcoming"
 }

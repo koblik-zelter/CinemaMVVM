@@ -38,7 +38,9 @@ class ViewController: UIViewController {
     private func setupCollectionView() {
         self.view.addSubview(collectionView)
         
-        collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "cellId")
+        collectionView.register(TopRatedCell.self, forCellWithReuseIdentifier: "cellId")
+        collectionView.register(TodayMovieCell.self, forCellWithReuseIdentifier: "cellId1")
+        collectionView.register(SectionHeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "headerId")
         NSLayoutConstraint.activate([collectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
                                      collectionView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
                                      collectionView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
@@ -70,12 +72,11 @@ extension ViewController {
     private func createLayout() -> UICollectionViewCompositionalLayout {
         return UICollectionViewCompositionalLayout { (section, env) -> NSCollectionLayoutSection? in
             
-            let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(44))
-            let headerElement = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: headerSize, elementKind: "headerId", alignment: .top)
+            let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .absolute(70))
+            let headerElement = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: headerSize, elementKind: UICollectionView.elementKindSectionHeader, alignment: .top)
             
             if section == 0 {
                 let item = NSCollectionLayoutItem(layoutSize: .init(widthDimension: .fractionalWidth(0.9), heightDimension: .fractionalHeight(1)))
-                item.contentInsets.top = 16
                 
                 let group = NSCollectionLayoutGroup.horizontal(layoutSize: .init(widthDimension: .fractionalWidth(0.66), heightDimension: .fractionalWidth(0.66 * 1.28)), subitems: [item])
                 
@@ -87,23 +88,19 @@ extension ViewController {
                 section.contentInsets.leading = 16
                 section.contentInsets.trailing = 16
                 
-//                section.boundarySupplementaryItems = [headerElement]
+                section.boundarySupplementaryItems = [headerElement]
                 
                 return section
             } else {
                 let item = NSCollectionLayoutItem(layoutSize: .init(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1)))
-                item.contentInsets.bottom = 16
-                item.contentInsets.leading = 16
-                item.contentInsets.trailing = 16
                 
                 let group = NSCollectionLayoutGroup.vertical(layoutSize: .init(widthDimension: .fractionalWidth(1), heightDimension: .absolute(230)), subitems: [item])
                 
                 let section = NSCollectionLayoutSection(group: group)
                 
-                section.contentInsets.top = 16
-                section.contentInsets.bottom = 16
+                section.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 16, bottom: 16, trailing: 16)
                 
-//                section.boundarySupplementaryItems = [headerElement]
+                section.boundarySupplementaryItems = [headerElement]
                 
                 return section
             }
@@ -115,20 +112,37 @@ extension ViewController {
 
 extension ViewController {
     private func createDataSource() -> UICollectionViewDiffableDataSource<Section, Movie> {
-       return UICollectionViewDiffableDataSource<Section, Movie>(collectionView: collectionView) { [weak self] (collectionView, index, movie) -> UICollectionViewCell? in
+        let dataSource = UICollectionViewDiffableDataSource<Section, Movie>(collectionView: collectionView) { [weak self] (collectionView, index, movie) -> UICollectionViewCell? in
             guard let self = self else { return nil }
             switch self.viewModel.sections[index.section].type {
             case .today:
-                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cellId", for: index)
-                cell.backgroundColor = .red
+                guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cellId1", for: index) as? TodayMovieCell else { return nil }
+                cell.configure(viewModel: MovieViewModel(movie: self.viewModel.getMovie(indexPath: index)))
                 return cell
-            case .upcoming:
-                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cellId", for: index)
-                cell.backgroundColor = .blue
+            case .topRated:
+                guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cellId", for: index) as? TopRatedCell else { return nil }
+                cell.configure(viewModel: MovieViewModel(movie: self.viewModel.getMovie(indexPath: index)))
                 return cell
-
             }
         }
+        
+        dataSource.supplementaryViewProvider = { (collectionView, kind, indexPath) in
+            guard kind == UICollectionView.elementKindSectionHeader else {
+                return nil
+            }
+            
+            let section = self.dataSource.snapshot()
+              .sectionIdentifiers[indexPath.section]
+            
+            guard let view = collectionView.dequeueReusableSupplementaryView(
+                ofKind: kind,
+                withReuseIdentifier: "headerId",
+                for: indexPath) as? SectionHeaderView else { return nil }
+            view.setTitle(section.type.rawValue)
+            return view
+        }
+        
+        return dataSource
     }
     
     private func applySnapshot() {

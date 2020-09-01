@@ -25,15 +25,15 @@ class MoviesViewModel {
     func requestData() {
         let manager = MovieAPIManager.shared
         sections.removeAll()
-        manager.getTodayMovies(page: todayPage) { [weak self] result in
+        manager.getTopRatedMovies(page: todayPage) { [weak self] result in
             guard let self = self else { return }
             switch result {
             case .success(let movies):
-                self.sections.append(Section(type: .today, movies: movies))
-                manager.getUpcomingMovies(page: self.upcomingPage) { result in
+                self.sections.append(Section(type: .topRated, movies: movies))
+                manager.getTodayMovies(page: self.upcomingPage) { result in
                     switch result {
                     case .success(let movies):
-                        self.sections.append(Section(type: .upcoming, movies: movies))
+                        self.sections.append(Section(type: .today, movies: movies))
                         guard let callback = self.requestCallback else { return }
                         DispatchQueue.main.async {
                             callback()
@@ -61,5 +61,9 @@ class MoviesViewModel {
             return sections[section].movies.count
         }
         return 0
+    }
+    
+    func getMovie(indexPath: IndexPath) -> Movie {
+        return sections[indexPath.section].movies[indexPath.item]
     }
 }
