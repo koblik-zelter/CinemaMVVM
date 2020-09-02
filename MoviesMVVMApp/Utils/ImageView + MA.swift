@@ -38,4 +38,12 @@ extension UIImageView {
             }
         }.resume()
     }
+    
+    func addBlurView() {
+        let effect = UIBlurEffect(style: UIBlurEffect.Style.light)
+        let effectView = UIVisualEffectView(effect: effect)
+        effectView.frame = bounds
+        effectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        addSubview(effectView)
+    }
 }

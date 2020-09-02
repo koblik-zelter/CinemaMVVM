@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Cosmos
 
 class TodayMovieCell: UICollectionViewCell {
     
@@ -36,12 +37,29 @@ class TodayMovieCell: UICollectionViewCell {
         return iv
     }()
     
-    private lazy var descriptionLabel: UILabel = {
-        let label = UILabel()
+    private lazy var ratingView: CosmosView = {
+        let ratingView = CosmosView()
+        ratingView.translatesAutoresizingMaskIntoConstraints = false
+        ratingView.rating = 4.5
+        ratingView.isUserInteractionEnabled = false
+        ratingView.settings.fillMode = .precise
+        ratingView.settings.filledColor = .lightGray
+        ratingView.settings.filledBorderColor = .lightGray
+        ratingView.settings.emptyBorderColor = .lightGray
+        ratingView.text = "90%"
+        return ratingView
+    }()
+    
+    private lazy var descriptionLabel: UITextView = {
+        let label = UITextView()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "Joker Joker Joker Joker Joker Joker Joker Joker"
-        label.numberOfLines = 0
-        label.lineBreakMode = .byTruncatingTail
+        label.textAlignment = .left
+        label.textContainer.lineBreakMode = .byTruncatingTail
+        label.textContainer.maximumNumberOfLines = 8
+        label.isUserInteractionEnabled = false
+        label.isEditable = false
+        label.isSelectable = false
         label.font = .systemFont(ofSize: 16)
         label.textColor = .secondaryLabel
         return label
@@ -59,7 +77,8 @@ class TodayMovieCell: UICollectionViewCell {
     func configure(viewModel: MovieViewModel) {
         titleLabel.text = viewModel.title
         descriptionLabel.text = viewModel.desctiption
-        chipView.setRating(viewModel.rating)
+        ratingView.rating = viewModel.rating
+        ratingView.text = viewModel.ratingPercent
         if let path = viewModel.imagePath {
             movieImageView.setImage(path: path)
         } else {
@@ -77,34 +96,40 @@ class TodayMovieCell: UICollectionViewCell {
         
         NSLayoutConstraint.activate([movieImageView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
                                      movieImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-                                     movieImageView.heightAnchor.constraint(equalTo: contentView.heightAnchor, multiplier: 0.9),
+                                     movieImageView.heightAnchor.constraint(equalTo: contentView.heightAnchor, multiplier: 1),
                                      movieImageView.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.45)
-        ])
-        
-        self.contentView.addSubview(chipView)
-        NSLayoutConstraint.activate([chipView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -16),
-                                     chipView.heightAnchor.constraint(equalToConstant: 34),
-                                     chipView.widthAnchor.constraint(equalToConstant: 85)
         ])
     }
     
     private func configureDetails() {
-        let stackView = UIStackView(arrangedSubviews: [titleLabel, descriptionLabel])
+        let stackView = UIStackView(arrangedSubviews: [titleLabel, ratingView])
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .vertical
+        stackView.spacing = 8
         stackView.alignment = .top
         stackView.distribution = .fill
     
         contentView.addSubview(stackView)
-    
-        descriptionLabel.bottomAnchor.constraint(equalTo: chipView.topAnchor, constant: -8).isActive = true
-        titleLabel.heightAnchor.constraint(equalToConstant: 20).isActive = true
+        
+        ratingView.heightAnchor.constraint(equalToConstant: 16).isActive = true
+        titleLabel.heightAnchor.constraint(equalToConstant: 24).isActive = true
         
         NSLayoutConstraint.activate([stackView.leadingAnchor.constraint(equalTo: contentView.centerXAnchor),
                                      stackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -4),
-                                     stackView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 16),
-                                     chipView.centerXAnchor.constraint(equalTo: stackView.centerXAnchor)
+                                     stackView.topAnchor.constraint(equalTo: contentView.topAnchor)
         ])
+        
+        descriptionLabel.sizeToFit()
+        
+        contentView.addSubview(descriptionLabel)
+        
+        NSLayoutConstraint.activate([descriptionLabel.leadingAnchor.constraint(equalTo: contentView.centerXAnchor),
+                                     descriptionLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -4),
+                                     descriptionLabel.topAnchor.constraint(equalTo: stackView.bottomAnchor, constant: 4),
+                                     descriptionLabel.bottomAnchor.constraint(equalTo: movieImageView.bottomAnchor)
+        ])
+        
+
     }
     
     

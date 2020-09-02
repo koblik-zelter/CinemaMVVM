@@ -7,5 +7,6 @@ target 'MoviesMVVMApp' do
 
   # Pods for MoviesMVVMApp
 	pod 'Alamofire'
+	pod 'Cosmos', '~> 22.1'
 
 end

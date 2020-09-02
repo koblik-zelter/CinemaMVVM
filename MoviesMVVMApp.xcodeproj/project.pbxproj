@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		2BC36A764DD0F0744E288252 /* Pods_MoviesMVVMApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DEA3E8B8B7919D1EFFFBFC0B /* Pods_MoviesMVVMApp.framework */; };
+		4442D54124FFC3360018C3D8 /* MovieDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4442D54024FFC3360018C3D8 /* MovieDetailsViewController.swift */; };
 		4492937824FAEC77005B20AF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4492937724FAEC77005B20AF /* AppDelegate.swift */; };
 		4492937A24FAEC77005B20AF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4492937924FAEC77005B20AF /* SceneDelegate.swift */; };
 		4492937C24FAEC77005B20AF /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4492937B24FAEC77005B20AF /* ViewController.swift */; };
@@ -31,6 +32,7 @@
 
 /* Begin PBXFileReference section */
 		0337A3E55D6A9099974D1EC3 /* Pods-MoviesMVVMApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MoviesMVVMApp.debug.xcconfig"; path = "Target Support Files/Pods-MoviesMVVMApp/Pods-MoviesMVVMApp.debug.xcconfig"; sourceTree = "<group>"; };
+		4442D54024FFC3360018C3D8 /* MovieDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDetailsViewController.swift; sourceTree = "<group>"; };
 		4492937424FAEC77005B20AF /* MoviesMVVMApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MoviesMVVMApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4492937724FAEC77005B20AF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4492937924FAEC77005B20AF /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -128,6 +130,7 @@
 			isa = PBXGroup;
 			children = (
 				4492937B24FAEC77005B20AF /* ViewController.swift */,
+				4442D54024FFC3360018C3D8 /* MovieDetailsViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -309,6 +312,7 @@
 				44F26ADA24FE4354006D3E92 /* ChipView.swift in Sources */,
 				44F26AE124FE67C0006D3E92 /* ImageCache.swift in Sources */,
 				44F26ADC24FE587E006D3E92 /* MovieViewModel.swift in Sources */,
+				4442D54124FFC3360018C3D8 /* MovieDetailsViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

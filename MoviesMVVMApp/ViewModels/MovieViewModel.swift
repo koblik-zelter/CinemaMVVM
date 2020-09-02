@@ -15,8 +15,12 @@ class MovieViewModel {
         self.movie = movie
     }
     
-    var rating: String {
-        "\(Int((movie.rating ?? 0) * 10))%"
+    var ratingPercent: String {
+        String(format: "%.1f", (movie.rating ?? 0) / 2)
+    }
+    
+    var rating: Double {
+        (movie.rating ?? 0) / 2
     }
     
     var desctiption: String {

@@ -27,6 +27,11 @@ class ViewController: UIViewController {
     
     // MARK: - Lifecycle
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.navigationController?.isNavigationBarHidden = true
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupCollectionView()
@@ -63,7 +68,10 @@ class ViewController: UIViewController {
 // MARK: - UICollectionViewDelegate
 
 extension ViewController: UICollectionViewDelegate {
-    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let vc = MovieDetailsViewController(viewModel: MovieViewModel(movie: self.viewModel.getMovie(indexPath: indexPath)))
+        navigationController?.pushViewController(vc, animated: true)
+    }
 }
 
 // MARK: - Compositional Layout
@@ -72,7 +80,7 @@ extension ViewController {
     private func createLayout() -> UICollectionViewCompositionalLayout {
         return UICollectionViewCompositionalLayout { (section, env) -> NSCollectionLayoutSection? in
             
-            let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .absolute(70))
+            let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .absolute(50))
             let headerElement = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: headerSize, elementKind: UICollectionView.elementKindSectionHeader, alignment: .top)
             
             if section == 0 {
@@ -93,6 +101,8 @@ extension ViewController {
                 return section
             } else {
                 let item = NSCollectionLayoutItem(layoutSize: .init(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1)))
+                
+                item.contentInsets.top = 16
                 
                 let group = NSCollectionLayoutGroup.vertical(layoutSize: .init(widthDimension: .fractionalWidth(1), heightDimension: .absolute(230)), subitems: [item])
                 

@@ -34,9 +34,7 @@ class TopRatedCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func configure(viewModel: MovieViewModel) {
-        self.chipView.setRating(viewModel.rating)
-        
+    func configure(viewModel: MovieViewModel) {        
         if let path = viewModel.imagePath {
             movieImageView.setImage(path: path)
         } else {
