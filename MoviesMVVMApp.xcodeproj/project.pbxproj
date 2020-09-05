@@ -27,6 +27,11 @@
 		44E39A24250239D7000C7734 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44E39A23250239D7000C7734 /* MapViewController.swift */; };
 		44E39A2E25038574000C7734 /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44E39A2D25038574000C7734 /* MainTabBarController.swift */; };
 		44E39A3225038C63000C7734 /* FavoritesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44E39A3125038C63000C7734 /* FavoritesViewController.swift */; };
+		44E39A3625038E43000C7734 /* MovieObject.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 44E39A3425038E43000C7734 /* MovieObject.xcdatamodeld */; };
+		44E39A38250390CB000C7734 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44E39A37250390CB000C7734 /* CoreDataManager.swift */; };
+		44E39A3A2503A5E0000C7734 /* FavoritesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44E39A392503A5E0000C7734 /* FavoritesViewModel.swift */; };
+		44E39A3C2503C20D000C7734 /* CoreDataErrors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44E39A3B2503C20D000C7734 /* CoreDataErrors.swift */; };
+		44E39A3F2503C3A7000C7734 /* UIViewController + MA.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44E39A3E2503C3A7000C7734 /* UIViewController + MA.swift */; };
 		44F26AD824FE42C7006D3E92 /* TodayMovieCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44F26AD724FE42C7006D3E92 /* TodayMovieCell.swift */; };
 		44F26ADA24FE4354006D3E92 /* ChipView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44F26AD924FE4354006D3E92 /* ChipView.swift */; };
 		44F26ADC24FE587E006D3E92 /* MovieViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44F26ADB24FE587E006D3E92 /* MovieViewModel.swift */; };
@@ -59,6 +64,11 @@
 		44E39A23250239D7000C7734 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		44E39A2D25038574000C7734 /* MainTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
 		44E39A3125038C63000C7734 /* FavoritesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesViewController.swift; sourceTree = "<group>"; };
+		44E39A3525038E43000C7734 /* MovieObject.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = MovieObject.xcdatamodel; sourceTree = "<group>"; };
+		44E39A37250390CB000C7734 /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
+		44E39A392503A5E0000C7734 /* FavoritesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesViewModel.swift; sourceTree = "<group>"; };
+		44E39A3B2503C20D000C7734 /* CoreDataErrors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataErrors.swift; sourceTree = "<group>"; };
+		44E39A3E2503C3A7000C7734 /* UIViewController + MA.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController + MA.swift"; sourceTree = "<group>"; };
 		44F26AD724FE42C7006D3E92 /* TodayMovieCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayMovieCell.swift; sourceTree = "<group>"; };
 		44F26AD924FE4354006D3E92 /* ChipView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChipView.swift; sourceTree = "<group>"; };
 		44F26ADB24FE587E006D3E92 /* MovieViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieViewModel.swift; sourceTree = "<group>"; };
@@ -115,6 +125,7 @@
 				4492938024FAEC80005B20AF /* Assets.xcassets */,
 				4492938224FAEC80005B20AF /* LaunchScreen.storyboard */,
 				4492938524FAEC80005B20AF /* Info.plist */,
+				44E39A3425038E43000C7734 /* MovieObject.xcdatamodeld */,
 			);
 			path = MoviesMVVMApp;
 			sourceTree = "<group>";
@@ -133,6 +144,7 @@
 			children = (
 				44E39A26250383CF000C7734 /* Cache */,
 				44E39A25250383C0000C7734 /* Networking */,
+				44E39A3D2503C24B000C7734 /* CoreData */,
 			);
 			path = Sevices;
 			sourceTree = "<group>";
@@ -154,6 +166,7 @@
 				4492939A24FD4D6A005B20AF /* MoviesViewModel.swift */,
 				44F26ADB24FE587E006D3E92 /* MovieViewModel.swift */,
 				4442D546250179260018C3D8 /* MapViewModel.swift */,
+				44E39A392503A5E0000C7734 /* FavoritesViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -227,6 +240,15 @@
 			path = Favorites;
 			sourceTree = "<group>";
 		};
+		44E39A3D2503C24B000C7734 /* CoreData */ = {
+			isa = PBXGroup;
+			children = (
+				44E39A37250390CB000C7734 /* CoreDataManager.swift */,
+				44E39A3B2503C20D000C7734 /* CoreDataErrors.swift */,
+			);
+			path = CoreData;
+			sourceTree = "<group>";
+		};
 		44F26AD624FE42A3006D3E92 /* Views */ = {
 			isa = PBXGroup;
 			children = (
@@ -242,6 +264,7 @@
 			children = (
 				44F26ADE24FE6772006D3E92 /* ImageView + MA.swift */,
 				4442D548250189A60018C3D8 /* UIDevice + MA.swift */,
+				44E39A3E2503C3A7000C7734 /* UIViewController + MA.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -390,13 +413,18 @@
 				4492938F24FAF869005B20AF /* MovieAPIManager.swift in Sources */,
 				4492938C24FAEE58005B20AF /* Movie.swift in Sources */,
 				4492939924FD492D005B20AF /* MoviesData.swift in Sources */,
+				44E39A3F2503C3A7000C7734 /* UIViewController + MA.swift in Sources */,
+				44E39A3A2503A5E0000C7734 /* FavoritesViewModel.swift in Sources */,
 				4442D547250179260018C3D8 /* MapViewModel.swift in Sources */,
 				44F26ADF24FE6772006D3E92 /* ImageView + MA.swift in Sources */,
 				44E39A24250239D7000C7734 /* MapViewController.swift in Sources */,
+				44E39A3625038E43000C7734 /* MovieObject.xcdatamodeld in Sources */,
 				44F26AE524FE9DE9006D3E92 /* SectionHeaderView.swift in Sources */,
 				4492937A24FAEC77005B20AF /* SceneDelegate.swift in Sources */,
+				44E39A38250390CB000C7734 /* CoreDataManager.swift in Sources */,
 				44F26ADA24FE4354006D3E92 /* ChipView.swift in Sources */,
 				44F26AE124FE67C0006D3E92 /* ImageCache.swift in Sources */,
+				44E39A3C2503C20D000C7734 /* CoreDataErrors.swift in Sources */,
 				4442D549250189A60018C3D8 /* UIDevice + MA.swift in Sources */,
 				44E39A3225038C63000C7734 /* FavoritesViewController.swift in Sources */,
 				44F26ADC24FE587E006D3E92 /* MovieViewModel.swift in Sources */,
@@ -602,6 +630,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		44E39A3425038E43000C7734 /* MovieObject.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				44E39A3525038E43000C7734 /* MovieObject.xcdatamodel */,
+			);
+			currentVersion = 44E39A3525038E43000C7734 /* MovieObject.xcdatamodel */;
+			path = MovieObject.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 4492936C24FAEC77005B20AF /* Project object */;
 }

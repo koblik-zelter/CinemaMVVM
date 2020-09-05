@@ -2,23 +2,27 @@ PODS:
   - Alamofire (5.2.2)
   - Cosmos (22.1.0)
   - FittedSheets (2.1.1)
+  - SPAlert (2.1.4)
 
 DEPENDENCIES:
   - Alamofire
   - Cosmos (~> 22.1)
   - FittedSheets
+  - SPAlert
 
 SPEC REPOS:
   trunk:
     - Alamofire
     - Cosmos
     - FittedSheets
+    - SPAlert
 
 SPEC CHECKSUMS:
   Alamofire: 814429acc853c6c54ff123fc3d2ef66803823ce0
   Cosmos: 2795b36ad4bbea1af3050d6d65576ed63875f86a
   FittedSheets: ec30a41b7f054891992ada0441ebe7801958f123
+  SPAlert: 1a8afa1c6ac86a82ab5b2cfdf7f9a51e68cb6c0c
 
-PODFILE CHECKSUM: dbd1a9508b83a09415d3c146812c55f292205424
+PODFILE CHECKSUM: f655f3e0ba07d984042a409ca80e97abb04ddae6
 
 COCOAPODS: 1.9.3

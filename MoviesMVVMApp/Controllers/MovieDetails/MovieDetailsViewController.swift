@@ -8,8 +8,10 @@
 
 import UIKit
 import FittedSheets
+import SPAlert
 
 class MovieDetailsViewController: UIViewController {
+    
     // MARK: - Private properties
     
     private lazy var backgroundImageView: UIImageView = {
@@ -30,6 +32,9 @@ class MovieDetailsViewController: UIViewController {
         iv.clipsToBounds = true
         return iv
     }()
+    
+    private lazy var likeButton = UIButton()
+    private lazy var shareButton = UIButton()
     
     private var viewModel: MovieViewModel
     
@@ -64,6 +69,7 @@ class MovieDetailsViewController: UIViewController {
         super.viewDidLoad()
         setupViews()
         setupBottomController()
+        bindViewModel()
         
         UINavigationBar.appearance().setBackgroundImage(UIImage(), for: .default)
         UINavigationBar.appearance().shadowImage = UIImage()
@@ -77,16 +83,36 @@ class MovieDetailsViewController: UIViewController {
         self.navigationController?.isNavigationBarHidden = false
         self.navigationController?.navigationBar.backItem?.title = ""
         
-        let likeButton = UIButton()
+        let heartName = viewModel.isFavorite ? "heart.fill" : "heart"
         likeButton.addTarget(self, action: #selector(addToFavorites), for: .touchUpInside)
-        likeButton.setImage(UIImage(systemName: "heart.fill", withConfiguration: UIImage.SymbolConfiguration(textStyle: .title2)), for: .normal)
-        let shareButton = UIButton()
+        likeButton.setImage(UIImage(systemName: heartName, withConfiguration: UIImage.SymbolConfiguration(textStyle: .title2)), for: .normal)
+        
         shareButton.addTarget(self, action: #selector(shareMovie), for: .touchUpInside)
         shareButton.setImage(UIImage(systemName: "square.and.arrow.up", withConfiguration: UIImage.SymbolConfiguration(textStyle: .title2)), for: .normal)
+        
         let stackView = UIStackView(arrangedSubviews: [likeButton, UIView(), shareButton])
         stackView.axis = .horizontal
         stackView.spacing = 4
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(customView: stackView)
+    }
+    
+    private func bindViewModel() {
+        viewModel.addedToFavorites = { [weak self] in
+            guard let self = self else { return }
+            self.likeButton.setImage(UIImage(systemName: "heart.fill", withConfiguration: UIImage.SymbolConfiguration(textStyle: .title2)), for: .normal)
+            self.showAlert(title: "Added to favorites", presset: .done)
+        }
+        
+        viewModel.onRemoveFromFavorites = { [weak self] in
+            guard let self = self else { return }
+            self.likeButton.setImage(UIImage(systemName: "heart", withConfiguration: UIImage.SymbolConfiguration(textStyle: .title2)), for: .normal)
+            self.showAlert(title: "Removed from favorites", presset: .done)
+        }
+        
+        viewModel.onError = { [weak self] err in
+            guard let self = self else { return }
+            self.showAlert(title: err.rawValue, presset: .error)
+        }
     }
     
     private func setupViews() {
@@ -135,14 +161,19 @@ class MovieDetailsViewController: UIViewController {
     // MARK: - Actions
     
     @objc private func shareMovie() {
-        guard let image = movieImageView.image else { return }
+        guard let image = movieImageView.image?.jpegData(compressionQuality: 0.8) else { return }
         let activityController = UIActivityViewController(activityItems: [image, "What a movie \(viewModel.title)"], applicationActivities: nil)
         activityController.popoverPresentationController?.barButtonItem = navigationItem.rightBarButtonItem
         present(activityController, animated: true)
     }
     
     @objc private func addToFavorites() {
-        print("Added to Favorites")
+        if viewModel.isFavorite {
+            viewModel.removeFromFavorites()
+            return
+        }
+        
+        viewModel.saveMovieToFavorites()
     }
 
 }

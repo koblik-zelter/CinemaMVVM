@@ -9,4 +9,5 @@ target 'MoviesMVVMApp' do
 	pod 'Alamofire'
 	pod 'Cosmos', '~> 22.1'
 	pod 'FittedSheets'
+	pod 'SPAlert'
 end

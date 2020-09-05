@@ -2,3 +2,4 @@ ${PODS_ROOT}/Target Support Files/Pods-MoviesMVVMApp/Pods-MoviesMVVMApp-framewor
 ${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework
 ${BUILT_PRODUCTS_DIR}/Cosmos/Cosmos.framework
 ${BUILT_PRODUCTS_DIR}/FittedSheets/FittedSheets.framework
+${BUILT_PRODUCTS_DIR}/SPAlert/SPAlert.framework
