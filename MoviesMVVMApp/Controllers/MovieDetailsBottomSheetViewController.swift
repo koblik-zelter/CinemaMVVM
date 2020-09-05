@@ -191,6 +191,5 @@ class MovieDetailsBottomSheetViewController: UIViewController {
         let vc = MapViewController(mapViewModel: mapViewModel)
         vc.modalPresentationStyle = .fullScreen
         present(vc, animated: true, completion: nil)
-//        self.navigationController?.pushViewController(vc, animated: true)
     }
 }

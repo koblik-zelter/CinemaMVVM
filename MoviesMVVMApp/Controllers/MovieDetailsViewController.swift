@@ -135,7 +135,10 @@ class MovieDetailsViewController: UIViewController {
     // MARK: - Actions
     
     @objc private func shareMovie() {
-        print("Share")
+        guard let image = movieImageView.image else { return }
+        let activityController = UIActivityViewController(activityItems: [image, "What a movie \(viewModel.title)"], applicationActivities: nil)
+        activityController.popoverPresentationController?.barButtonItem = navigationItem.rightBarButtonItem
+        present(activityController, animated: true)
     }
     
     @objc private func addToFavorites() {
