@@ -34,6 +34,7 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.view.backgroundColor = .white
         setupCollectionView()
         setupViewModel()
     }
@@ -70,6 +71,7 @@ class ViewController: UIViewController {
 extension ViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let vc = MovieDetailsViewController(viewModel: MovieViewModel(movie: self.viewModel.getMovie(indexPath: indexPath)))
+        vc.hidesBottomBarWhenPushed = true
         navigationController?.pushViewController(vc, animated: true)
     }
 }
