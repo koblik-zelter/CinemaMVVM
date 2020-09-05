@@ -1,4 +1,4 @@
-F//
+//
 //  FavoritesViewController.swift
 //  MoviesMVVMApp
 //
