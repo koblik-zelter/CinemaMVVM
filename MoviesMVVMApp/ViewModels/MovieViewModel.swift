@@ -34,4 +34,8 @@ class MovieViewModel {
     var title: String {
         movie.title
     }
+    
+    var year: String {
+        String(movie.date.prefix(4))
+    }
 }

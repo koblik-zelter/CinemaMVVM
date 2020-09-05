@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import FittedSheets
 
 class MovieDetailsViewController: UIViewController {
     // MARK: - Private properties
@@ -62,7 +63,7 @@ class MovieDetailsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViews()
-        print(viewModel.rating)
+        setupBottomController()
         
         UINavigationBar.appearance().setBackgroundImage(UIImage(), for: .default)
         UINavigationBar.appearance().shadowImage = UIImage()
@@ -104,7 +105,31 @@ class MovieDetailsViewController: UIViewController {
                                      movieImageView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -48),
                                      movieImageView.heightAnchor.constraint(equalTo: movieImageView.widthAnchor, multiplier: 1.4)
         ])
+    }
+    
+    private func setupBottomController() {
         
+        let offset: CGFloat = UIDevice.current.hasNotch ? 16 : 0
+        
+        let vc = MovieDetailsBottomSheetViewController(viewModel: viewModel)
+        let sheetController = SheetViewController(controller: vc, sizes: [.fixed(view.frame.height - offset - 96 - (view.frame.width - 96) * 1.4), .percent(0.85)], options: SheetOptions(useInlineMode: true))
+        sheetController.dismissOnPull = false
+        sheetController.dismissOnOverlayTap = false
+        sheetController.view.translatesAutoresizingMaskIntoConstraints = false
+        
+        sheetController.willMove(toParent: self)
+        self.addChild(sheetController)
+        self.view.addSubview(sheetController.view)
+        sheetController.didMove(toParent: self)
+        
+        NSLayoutConstraint.activate([
+            sheetController.view.topAnchor.constraint(equalTo: self.view.topAnchor),
+            sheetController.view.bottomAnchor.constraint(equalTo: self.view.bottomAnchor),
+            sheetController.view.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
+            sheetController.view.trailingAnchor.constraint(equalTo: self.view.trailingAnchor)
+        ])
+
+        sheetController.animateIn()
     }
     
     // MARK: - Actions
