@@ -106,7 +106,7 @@
 				4492939C24FD4D74005B20AF /* ViewModels */,
 				4492939724FBDF5E005B20AF /* Controllers */,
 				4492938D24FAF3E7005B20AF /* Model */,
-				4492939024FAF86D005B20AF /* Networking */,
+				4492939024FAF86D005B20AF /* Sevices */,
 				4492937D24FAEC77005B20AF /* Main.storyboard */,
 				4492938024FAEC80005B20AF /* Assets.xcassets */,
 				4492938224FAEC80005B20AF /* LaunchScreen.storyboard */,
@@ -124,23 +124,20 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
-		4492939024FAF86D005B20AF /* Networking */ = {
+		4492939024FAF86D005B20AF /* Sevices */ = {
 			isa = PBXGroup;
 			children = (
-				4492938E24FAF869005B20AF /* MovieAPIManager.swift */,
-				4492939124FAF884005B20AF /* APIManager.swift */,
-				4492939524FB0899005B20AF /* NetworkError.swift */,
+				44E39A26250383CF000C7734 /* Cache */,
+				44E39A25250383C0000C7734 /* Networking */,
 			);
-			path = Networking;
+			path = Sevices;
 			sourceTree = "<group>";
 		};
 		4492939724FBDF5E005B20AF /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				4492937B24FAEC77005B20AF /* ViewController.swift */,
-				4442D54024FFC3360018C3D8 /* MovieDetailsViewController.swift */,
-				4442D54225010B440018C3D8 /* MovieDetailsBottomSheetViewController.swift */,
-				44E39A23250239D7000C7734 /* MapViewController.swift */,
+				44E39A27250383DB000C7734 /* HomePage */,
+				44E39A29250383FD000C7734 /* MovieDetails */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -155,13 +152,73 @@
 			path = ViewModels;
 			sourceTree = "<group>";
 		};
-		44F26AD624FE42A3006D3E92 /* Views */ = {
+		44E39A25250383C0000C7734 /* Networking */ = {
+			isa = PBXGroup;
+			children = (
+				4492938E24FAF869005B20AF /* MovieAPIManager.swift */,
+				4492939124FAF884005B20AF /* APIManager.swift */,
+				4492939524FB0899005B20AF /* NetworkError.swift */,
+			);
+			path = Networking;
+			sourceTree = "<group>";
+		};
+		44E39A26250383CF000C7734 /* Cache */ = {
+			isa = PBXGroup;
+			children = (
+				44F26AE024FE67C0006D3E92 /* ImageCache.swift */,
+			);
+			path = Cache;
+			sourceTree = "<group>";
+		};
+		44E39A27250383DB000C7734 /* HomePage */ = {
+			isa = PBXGroup;
+			children = (
+				4492937B24FAEC77005B20AF /* ViewController.swift */,
+			);
+			path = HomePage;
+			sourceTree = "<group>";
+		};
+		44E39A29250383FD000C7734 /* MovieDetails */ = {
+			isa = PBXGroup;
+			children = (
+				4442D54024FFC3360018C3D8 /* MovieDetailsViewController.swift */,
+				4442D54225010B440018C3D8 /* MovieDetailsBottomSheetViewController.swift */,
+				44E39A23250239D7000C7734 /* MapViewController.swift */,
+			);
+			path = MovieDetails;
+			sourceTree = "<group>";
+		};
+		44E39A2A2503841E000C7734 /* CollectionViewCells */ = {
 			isa = PBXGroup;
 			children = (
 				44F26AD724FE42C7006D3E92 /* TodayMovieCell.swift */,
 				44F26AE224FE8129006D3E92 /* TopRatedCell.swift */,
+			);
+			path = CollectionViewCells;
+			sourceTree = "<group>";
+		};
+		44E39A2B2503843D000C7734 /* CollectionViewHeader */ = {
+			isa = PBXGroup;
+			children = (
 				44F26AE424FE9DE9006D3E92 /* SectionHeaderView.swift */,
+			);
+			path = CollectionViewHeader;
+			sourceTree = "<group>";
+		};
+		44E39A2C25038454000C7734 /* CustomViews */ = {
+			isa = PBXGroup;
+			children = (
 				44F26AD924FE4354006D3E92 /* ChipView.swift */,
+			);
+			path = CustomViews;
+			sourceTree = "<group>";
+		};
+		44F26AD624FE42A3006D3E92 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				44E39A2A2503841E000C7734 /* CollectionViewCells */,
+				44E39A2B2503843D000C7734 /* CollectionViewHeader */,
+				44E39A2C25038454000C7734 /* CustomViews */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -170,7 +227,6 @@
 			isa = PBXGroup;
 			children = (
 				44F26ADE24FE6772006D3E92 /* ImageView + MA.swift */,
-				44F26AE024FE67C0006D3E92 /* ImageCache.swift */,
 				4442D548250189A60018C3D8 /* UIDevice + MA.swift */,
 			);
 			path = Utils;
